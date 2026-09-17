@@ -1,0 +1,157 @@
+/*
+ * site-polish.css — lớp CSS tinh chỉnh giao diện, áp dụng cho toàn bộ site.
+ * Không đổi cấu trúc HTML/markup, chỉ ghi đè phần nhìn (màu sắc đồng bộ,
+ * khoảng cách, bo góc, đổ bóng, hover) dựa trên bảng màu thương hiệu sẵn có
+ * (vang đỏ #710e36 + vàng gold #ffcc00/#ffa751).
+ * Nạp SAU CÙNG trong <head> để có độ ưu tiên cao hơn CSS theme/inline.
+ */
+
+:root {
+  --mqh-wine: #710e36;
+  --mqh-wine-dark: #4c0924;
+  --mqh-gold: #ffcc00;
+  --mqh-gold-soft: #ffa751;
+  --mqh-ink: #212121;
+  --mqh-muted: #6b6b6b;
+  --mqh-radius: 12px;
+  --mqh-radius-sm: 8px;
+  --mqh-shadow: 0 6px 20px rgba(30, 8, 20, 0.1);
+  --mqh-shadow-lift: 0 14px 32px rgba(30, 8, 20, 0.18);
+}
+
+/* ---------- Typography ---------- */
+body {
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+h1, h2, h3, h4, h5, h6, .heading-font {
+  font-weight: 700 !important;
+  letter-spacing: -0.01em;
+}
+h1 { line-height: 1.2; }
+h2 { line-height: 1.25; }
+p { line-height: 1.7; }
+
+/* neo cuộn không bị thanh header che khi bấm liên kết nội bộ */
+h1, h2, h3, .page-title, section, [id] {
+  scroll-margin-top: 100px;
+}
+
+/* ---------- Header ---------- */
+.header-wrapper.stuck {
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.25);
+  transition: box-shadow 0.25s ease;
+}
+.header-main .header-inner {
+  transition: all 0.25s ease;
+}
+.header-nav-main.nav > li > a {
+  transition: color 0.2s ease;
+}
+
+/* ---------- Buttons ---------- */
+.button, button, input[type="submit"], .wp-block-button__link {
+  border-radius: 999px !important;
+  transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.01em;
+}
+.button:hover, button:hover, input[type="submit"]:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.06);
+  box-shadow: var(--mqh-shadow-lift);
+}
+.button.primary:not(.is-outline),
+button[type="submit"],
+input[type="submit"]:not(.is-form) {
+  background: linear-gradient(135deg, var(--mqh-wine), var(--mqh-wine-dark)) !important;
+}
+.form-chinhsach .noi-dung input[type="submit"],
+.form-banner .noi-dung input[type="submit"],
+.form-popup input[type="submit"] {
+  background: linear-gradient(135deg, var(--mqh-gold-soft), var(--mqh-gold)) !important;
+  color: var(--mqh-wine-dark) !important;
+  font-weight: 700 !important;
+}
+
+/* ---------- Forms / inputs ---------- */
+input[type="text"], input[type="tel"], input[type="email"],
+input[type="search"], input[type="number"], input[type="url"],
+textarea, select {
+  border-radius: var(--mqh-radius-sm) !important;
+  border: 1px solid #e2d9dd !important;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+input[type="text"]:focus, input[type="tel"]:focus, input[type="email"]:focus,
+textarea:focus, select:focus {
+  border-color: var(--mqh-wine) !important;
+  box-shadow: 0 0 0 3px rgba(113, 14, 54, 0.12) !important;
+  outline: none;
+}
+
+/* ---------- Cards / khối nội dung ---------- */
+.product-small.box,
+.box-blog-post {
+  border-radius: var(--mqh-radius) !important;
+  overflow: hidden;
+  transition: transform 0.22s ease, box-shadow 0.22s ease;
+  box-shadow: var(--mqh-shadow) !important;
+  border-color: #f0e7ea !important;
+}
+.product-small.box:hover,
+.box-blog-post:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--mqh-shadow-lift) !important;
+}
+
+/* ảnh minh hoạ trong nội dung: bo góc + đổ bóng nhẹ cho hiện đại hơn */
+.entry-content img,
+#main img:not(.icon):not([class*="icon"]) {
+  border-radius: var(--mqh-radius);
+}
+
+/* ---------- Popup đăng ký ---------- */
+.lightbox-content {
+  border-radius: 20px !important;
+}
+.form-popup .check-box {
+  border-radius: var(--mqh-radius-sm);
+}
+.mfp-close-btn-in .mfp-close {
+  transition: transform 0.2s ease;
+}
+.mfp-close-btn-in .mfp-close:hover {
+  transform: rotate(90deg);
+}
+
+/* ---------- Nút nổi (gọi điện / zalo) ---------- */
+.pzf-btn img, .pzf-btn svg,
+a[class*="phone"], a[class*="zalo"] {
+  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.25));
+}
+
+/* ---------- Footer ---------- */
+p.footer-title {
+  border-radius: var(--mqh-radius-sm);
+}
+.footer-section ul {
+  border-radius: var(--mqh-radius-sm);
+}
+.absolute-footer.dark a {
+  transition: color 0.2s ease;
+}
+.absolute-footer.dark a:hover {
+  color: var(--mqh-gold) !important;
+}
+
+/* ---------- Bảng giá / khối nổi bật ---------- */
+.section2 .row1 h2 {
+  border-radius: 999px !important;
+}
+
+/* ---------- Responsive tinh chỉnh ---------- */
+@media (max-width: 549px) {
+  h1 { font-size: 1.6em !important; }
+  h2 { font-size: 1.35em !important; }
+  .top-banner .text-box-content { padding: 24px !important; }
+}
