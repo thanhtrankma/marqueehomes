@@ -95,6 +95,9 @@ def clean_html(src):
     src = re.sub(r"\s+integrity=(['\"]).*?\1", "", src)
     src = re.sub(r"\s+crossorigin=(['\"]).*?\1", "", src)
 
+    # hotline/zalo mới (site gốc vẫn dùng số cũ 0901583289)
+    src = re.sub(r"0901([ .]?)583([ .]?)289", r"0972\g<1>303\g<2>883", src)
+
     # 3. font awesome CDN -> local
     src = re.sub(r"https://use\.fontawesome\.com/releases/v5\.15\.4/", "/assets/vendor/fontawesome/", src)
 
