@@ -1,6 +1,6 @@
-/* Gửi các form đăng ký (markup Contact Form 7 cũ) về /api/lead.php -> Telegram */
+/* Gửi các form đăng ký (markup Contact Form 7 cũ) về /api/lead -> Telegram */
 (function () {
-  var ENDPOINT = '/api/lead.php';
+  var ENDPOINT = '/api/lead';
 
   // dùng form.elements (không dùng querySelector) vì Flatsome có thể chuyển các ô ra ngoài <form> khi mở popup
   function fields(form, prefix) {
