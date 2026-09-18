@@ -3,7 +3,8 @@
 Bản sao tĩnh (HTML/CSS) của https://marqueehomes.vn, giữ nguyên cấu trúc URL và đường dẫn ảnh để không ảnh hưởng SEO.
 
 - Mỗi trang: `<slug>/index.html` · CSS/JS/ảnh/font: `wp-content/`, `wp-includes/`, `assets/vendor/`
-- Xem thử: `python3 -m http.server 8765` rồi mở http://localhost:8765
+- Xem thử (chỉ giao diện, form sẽ báo lỗi 501 vì POST không được xử lý): `python3 -m http.server 8765`
+- Xem thử đầy đủ, kể cả form gửi Telegram: `python3 tools/dev_server.py` (xem mục bên dưới)
 - Cào lại từ site gốc: `python3 tools/mirror.py` (ghi đè các chỉnh sửa tay!)
 - Sinh lại sitemap sau khi thêm/xoá trang: `python3 tools/build_sitemap.py`
 

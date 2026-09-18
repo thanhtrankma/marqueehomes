@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
-"""Server xem thử local: phục vụ file tĩnh + mô phỏng api/lead.php (đọc token từ api/config.php).
+"""Server xem thử local: phục vụ file tĩnh + mô phỏng api/lead (JS gọi endpoint này,
+đọc token từ api/config.php). Dùng file này để test form -> Telegram, KHÔNG dùng
+`python3 -m http.server` vì module đó không xử lý POST (sẽ báo lỗi 501).
 Chạy: python3 tools/dev_server.py  ->  http://localhost:8765"""
 import os, re, json, html, datetime, urllib.request, urllib.parse
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
@@ -20,7 +22,7 @@ class H(SimpleHTTPRequestHandler):
         super().do_GET()
 
     def do_POST(self):
-        if self.path != "/api/lead.php":
+        if self.path not in ("/api/lead", "/api/lead.php"):  # /api/lead = Vercel, .php = hosting cũ
             return self.send_error(404)
         try:
             d = json.loads(self.rfile.read(int(self.headers.get("Content-Length", 0))))
