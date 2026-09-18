@@ -54,8 +54,12 @@ module.exports = async function handler(req, res) {
   const botToken = process.env.TELEGRAM_BOT_TOKEN;
   const chatId = process.env.TELEGRAM_CHAT_ID;
   if (!botToken || !chatId) {
+    // Lỗi cấu hình của chính app (thiếu biến môi trường trên Vercel) — dùng 500,
+    // KHÔNG dùng 502, để không lẫn với lỗi thật của Telegram (upstream) bên dưới.
+    // Vercel > Project Settings > Environment Variables, rồi phải Redeploy lại
+    // (đổi biến môi trường không tự áp dụng cho các deploy đã build trước đó).
     console.error('lead.js: missing TELEGRAM_BOT_TOKEN/TELEGRAM_CHAT_ID env vars');
-    res.status(502).json({ ok: false, message: 'Hệ thống đang bận, vui lòng gọi hotline 0972303883.' });
+    res.status(500).json({ ok: false, message: 'Server thiếu cấu hình TELEGRAM_BOT_TOKEN/TELEGRAM_CHAT_ID.' });
     return;
   }
 

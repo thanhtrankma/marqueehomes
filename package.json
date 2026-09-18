@@ -1,0 +1,7 @@
+{
+  "name": "marqueehomes-static",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Bản tĩnh marqueehomes.vn + Vercel Serverless Function (api/lead.js) gửi lead qua Telegram.",
+  "engines": { "node": ">=18" }
+}
