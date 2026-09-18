@@ -15,6 +15,7 @@ UA = ("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 "
       "(KHTML, like Gecko) Chrome/126 Safari/537.36")
 SITEMAPS = ["post", "page", "product", "category", "product_cat"]
 MAX_PAGES = 400
+LEAD_FORM_JS_VERSION = 2  # tăng khi sửa assets/js/lead-form.js (xem clean_html)
 
 SKIP_PAGE = re.compile(
     r"^/(wp-admin|wp-login|wp-json|xmlrpc|my-account|tai-khoan|cart|gio-hang|"
@@ -98,8 +99,14 @@ def clean_html(src):
     # hotline/zalo mới (site gốc vẫn dùng số cũ 0901583289)
     src = re.sub(r"0901([ .]?)583([ .]?)289", r"0972\g<1>303\g<2>883", src)
 
-    # form đăng ký -> /api/lead.php -> Telegram
-    src = src.replace("</body>", '<script src="/assets/js/lead-form.js" defer></script>\n</body>', 1)
+    # form đăng ký -> /api/lead (Vercel) hoặc /api/lead.php (PHP) -> Telegram
+    # LEAD_FORM_JS_VERSION: tăng số này mỗi khi sửa assets/js/lead-form.js để tránh
+    # cache 5 phút (must-revalidate, xem vercel.json) trả file cũ cho khách đang mở trang.
+    src = src.replace(
+        "</body>",
+        '<script src="/assets/js/lead-form.js?v=%d" defer></script>\n</body>' % LEAD_FORM_JS_VERSION,
+        1,
+    )
 
     # 3. font awesome CDN -> local
     src = re.sub(r"https://use\.fontawesome\.com/releases/v5\.15\.4/", "/assets/vendor/fontawesome/", src)
