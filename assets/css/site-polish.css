@@ -207,3 +207,37 @@ p.footer-title {
   transform: none !important;
   filter: none !important;
 }
+
+/* ---------- Lề trái/phải cho khối nội dung không nằm trong lưới .row/.col ---------- */
+/* Phần lớn nội dung bài viết trang chủ (Vị trí, Quy mô, Tiện ích, Thiết kế, Tiềm năng...)
+   được chèn thẳng vào section dạng <div class="text"> là con trực tiếp của
+   .section-content, không đi qua .row > .col > .col-inner như các khối khác trên trang
+   -> không được hưởng padding 15px 2 bên của lưới Flatsome, chữ và bảng dính sát mép
+   màn hình trên mobile. Các khối đã nằm trong .row/.col thì .text luôn là cháu (không
+   phải con trực tiếp) của .section-content nên selector ">" dưới đây không đụng tới,
+   không bị chồng lề 2 lần. */
+.section-content > .text {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+@media (max-width: 549px) {
+  .section-content > .text {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+  /* bảng trong nội dung (vd. số lượng căn hộ theo toà) tự vỡ layout nếu ép vừa màn
+     hình -> cho cuộn ngang trong khung riêng thay vì tràn ra ngoài body */
+  .section-content > .text table {
+    display: block;
+    max-width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+/* ---------- Logo mobile: nền trắng thay vì gradient xanh mặc định của theme ---------- */
+@media (max-width: 549px) {
+  .logo-mobile {
+    background: #fff !important;
+  }
+}
