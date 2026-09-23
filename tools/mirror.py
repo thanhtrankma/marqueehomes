@@ -15,7 +15,7 @@ UA = ("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 "
       "(KHTML, like Gecko) Chrome/126 Safari/537.36")
 SITEMAPS = ["post", "page", "product", "category", "product_cat"]
 MAX_PAGES = 400
-LEAD_FORM_JS_VERSION = 2  # tăng khi sửa assets/js/lead-form.js (xem clean_html)
+LEAD_FORM_JS_VERSION = 3  # tăng khi sửa assets/js/lead-form.js (xem clean_html)
 
 SKIP_PAGE = re.compile(
     r"^/(wp-admin|wp-login|wp-json|xmlrpc|my-account|tai-khoan|cart|gio-hang|"
@@ -98,6 +98,12 @@ def clean_html(src):
 
     # hotline/zalo mới (site gốc vẫn dùng số cũ 0901583289)
     src = re.sub(r"0901([ .]?)583([ .]?)289", r"0972\g<1>303\g<2>883", src)
+
+    # logo trong header mobile bị hỏng (404) trên chính site gốc -> thay ảnh logo đang dùng
+    src = src.replace(
+        "/wp-content/uploads/2023/12/hhc_logo-02-1.png",
+        "/wp-content/uploads/2026/07/Logo-Marquee-2-03.png",
+    )
 
     # form đăng ký -> /api/lead (Vercel) hoặc /api/lead.php (PHP) -> Telegram
     # LEAD_FORM_JS_VERSION: tăng số này mỗi khi sửa assets/js/lead-form.js để tránh
